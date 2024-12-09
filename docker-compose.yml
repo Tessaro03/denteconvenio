@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"   
+      - "15672:15672" 
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 1234
+
+  redis:
+      image: redis:latest
+      container_name: redis-cache
+      ports:
+        - "6379:6379"
+  
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      
+  eurekaserver:
+        image: tessar0/eureka-food:1.0
+        ports:
+          - "8080:8080" 
+
+  gateway:
+    image: tessar0/gateway-food:1.2
+    ports:
+      - "8082:8082"
+    environment:
+      HOST_EUREKA: eurekaserver
+    entrypoint: ["sh", "-c", "sleep 5 && java -jar /app.jar"]
+    depends_on:
+      - eurekaserver
+
+
+  user:
+    image: tessar0/denteconvenio-user:1.0
+    environment:
+      HOST_EUREKA: eurekaserver
+      DB_HOST: mysql
+      DB_PASSWORD: root
+      RABBITMQ_HOST: rabbitmq
+    entrypoint: ["sh", "-c", "sleep 25 && java -jar /app.jar"]
+    depends_on:
+      - mysql
+      - rabbitmq
+
+  plano:
+    image: tessar0/denteconvenio-plano:1.0
+    environment:
+      HOST_EUREKA: eurekaserver
+      DB_HOST: mysql
+      DB_PASSWORD: root
+      RABBITMQ_HOST: rabbitmq
+    entrypoint: ["sh", "-c", "sleep 30 && java -jar /app.jar"]
+    depends_on:
+      - mysql
+      - rabbitmq
+
+  consulta:
+    image: tessar0/denteconvenio-consulta:1.0
+    environment:
+      HOST_EUREKA: eurekaserver
+      DB_HOST: mysql
+      DB_PASSWORD: root
+      RABBITMQ_HOST: rabbitmq
+    entrypoint: ["sh", "-c", "sleep 35 && java -jar /app.jar"]
+    depends_on:
+      - mysql
+      - rabbitmq
+    

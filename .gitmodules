@@ -4,3 +4,6 @@
 [submodule "planoservice"]
 	path = planoservice
 	url = https://github.com/Tessaro03/planoservice.git
+[submodule "consultaservice"]
+	path = consultaservice
+	url = https://github.com/Tessaro03/consultaservice.git
