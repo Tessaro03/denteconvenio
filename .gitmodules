@@ -1,0 +1,6 @@
+[submodule "userservice"]
+	path = userservice
+	url = https://github.com/Tessaro03/userservice.git
+[submodule "planoservice"]
+	path = planoservice
+	url = https://github.com/Tessaro03/planoservice.git
