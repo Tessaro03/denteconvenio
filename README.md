@@ -42,18 +42,21 @@ Explorar a arquitetura baseada em microserviços com tecnologias modernas, promo
 ## 🚀 Como Rodar o Projeto
 
 ### Pré-requisitos
-- **Java 17+**: Certifique-se de ter o Java instalado.
-- **Docker e Docker Compose**: Necessário para rodar os serviços.
+- **Docker**: Necessário para rodar os serviços.
 
 ### Passos
 1. Clone este repositório:
 
+```bash
 git clone https://github.com/Tessaro03/denteconvenio.git
 cd denteconvenio
-  
-Execute o docker-compose:
+```
 
+2. Execute o docker-compose:
+
+```bash
 docker-compose up
+```
 
 Acesse os serviços pelos endpoints configurados (consulte a documentação detalhada para endpoints e portas).
 
